@@ -7,12 +7,17 @@ gem 'pg'
 gem 'pusher'
 gem 'faye'
 gem 'thin'
-gem 'sync'
+gem 'sync', path: '/home/woto/vendor/sync'
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git', :branch => 'rails4'
+gem 'sqlite3'
 
 group :development do
   gem 'pry'
   gem 'pry-remote'
+  gem 'pry-nav'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
+  gem 'pry-doc'
   gem 'quiet_assets'
 end
 

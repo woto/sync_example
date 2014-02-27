@@ -9,3 +9,4 @@ config/sync.yml
 /log/*.log
 .rbenv-version
 .rbenv-gemsets
+*.swp

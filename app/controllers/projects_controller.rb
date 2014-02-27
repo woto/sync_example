@@ -1,9 +1,18 @@
 class ProjectsController < ApplicationController
+  include Sync::RefetchConcern
 
   before_filter :authenticate_user!
 
   def index
     @projects = current_user.projects
+    case params[:status] 
+    when 'complete'
+      @projects = @projects.includes(:todos).where(todos: { complete: true})
+    when 'incomplete'
+      @projects = @projects.includes(:todos).where(todos: { complete: false})
+    when 'empty'
+      @projects = @projects.includes(:todos).references(:todos).group('projects.id').having('count(todos.id) = 0')
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,6 +47,8 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        binding.pry
+        sync_new @project
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render json: @project, status: :created, location: @project }
       else
@@ -65,6 +76,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project = current_user.projects.find(params[:id])
     @project.destroy
+    sync_destroy @project
 
     respond_to do |format|
       format.html { redirect_to projects_url }

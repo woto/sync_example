@@ -1,0 +1,7 @@
+<tr>
+  <td class="name"><%= link_to project.name, project %></td>
+  <td><%= project.todos_count %> todos</td>
+  <td><%= link_to 'Edit', url_for(action: :edit, id: project) %></td>
+  <td><%= link_to 'Delete', url_for(action: :destroy, id: project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= render partial: 'column' %></td>
+</tr>

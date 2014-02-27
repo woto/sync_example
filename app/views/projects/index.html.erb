@@ -1,14 +1,18 @@
 <h1>Your Projects</h1>
 
+<%= link_to "all", url_for(action: 'index', status: nil) %> |
+<%= link_to "complete", url_for(status: 'complete') %> |
+<%= link_to "incomplete", url_for(status: 'incomplete') %> |
+<%= link_to "empty", url_for(status: 'empty') %>
+
+<br />
+<br />
+
 <table class="table">
-<% @projects.each do |project| %>
-  <tr>
-    <td class="name"><%= link_to project.name, project %></td>
-    <td><%= project.todos_count %> todos</td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  <tbody>
+    <%= sync partial: 'project_list_row', collection: @projects, refetch: true %>
+    <%= sync_new partial: 'project_list_row', resource: Project.new, refetch: true %>
+  </tbody>
 </table>
 
 <br />

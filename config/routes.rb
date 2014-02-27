@@ -11,10 +11,23 @@ SyncExample::Application.routes.draw do
     end
   end
 
-  resources :projects do
-    resources :todos do
-      resources :comments
+  concern :site do
+    resources :projects do
+      collection do
+        get 'status/:status' => 'projects#index'
+      end
+      get :refetch, on: :collection
+      resources :todos do
+        resources :comments
+      end
     end
   end
+
+  concerns :site
+
+  namespace :admin do
+    concerns :site
+  end
+
   resources :users
 end
