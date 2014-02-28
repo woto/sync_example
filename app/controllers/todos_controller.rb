@@ -40,7 +40,10 @@ class TodosController < ApplicationController
     respond_to do |format|
       if @todo.save
         sync_new @todo, scope: @project
-        sync_update @todo.project.reload
+        sync_destroy @todo.project
+        sync_new @todo.project
+        sync_update @todo.project
+        #sync_update @todo.project.reload
 
         format.html { redirect_to [@todo.project, @todo], notice: 'Todo was successfully created.' }
         format.js { render json: @todo, status: :created, location: [@todo.project, @todo] }
@@ -56,6 +59,9 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.update_attributes(todo_params)
+        sync_destroy @todo.project
+        sync_new @todo.project
+        sync_update @todo.project
         sync_update [@todo, @project]
         format.html { redirect_to [@todo.project, @todo], notice: 'Todo was successfully updated.' }
         format.js { head :no_content }
@@ -72,6 +78,8 @@ class TodosController < ApplicationController
     @todo.destroy
 
     sync_destroy @todo
+    sync_destroy @todo.project
+    sync_new @todo.project
     sync_update @todo.project.reload
     respond_to do |format|
       format.html { redirect_to project_path(@todo.project) }

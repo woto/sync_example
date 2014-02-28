@@ -5,14 +5,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = current_user.projects
-    case params[:status] 
-    when 'complete'
-      @projects = @projects.includes(:todos).where(todos: { complete: true})
-    when 'incomplete'
-      @projects = @projects.includes(:todos).where(todos: { complete: false})
-    when 'empty'
-      @projects = @projects.includes(:todos).references(:todos).group('projects.id').having('count(todos.id) = 0')
-    end
+    @projects = common_filter(@projects)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,7 +40,6 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        binding.pry
         sync_new @project
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render json: @project, status: :created, location: @project }
@@ -90,4 +82,18 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit :name
   end
+
+  def common_filter projects
+    case params[:status] 
+    when 'complete'
+      projects.complete
+    when 'incomplete'
+      projects.incomplete
+    when 'empty'
+      projects.empty
+    else
+      projects
+    end
+  end
+
 end

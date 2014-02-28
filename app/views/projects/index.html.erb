@@ -1,8 +1,8 @@
 <h1>Your Projects</h1>
 
 <%= link_to "all", url_for(action: 'index', status: nil) %> |
-<%= link_to "complete", url_for(status: 'complete') %> |
-<%= link_to "incomplete", url_for(status: 'incomplete') %> |
+<%= link_to "all complete", url_for(status: 'complete') %> |
+<%= link_to "any incomplete", url_for(status: 'incomplete') %> |
 <%= link_to "empty", url_for(status: 'empty') %>
 
 <br />

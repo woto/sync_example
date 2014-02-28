@@ -30,5 +30,3 @@ end
 gem 'jquery-rails'
 gem "twitter-bootstrap-rails"
 gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
-
-
