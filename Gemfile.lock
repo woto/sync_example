@@ -60,8 +60,9 @@ GIT
       rdoc (~> 3.4)
       thor (>= 0.17.0, < 2.0)
 
-PATH
-  remote: /home/woto/vendor/sync
+GIT
+  remote: git://github.com/woto/sync.git
+  revision: 410abfa522b51e81b4d520a5ed4a425d688fa308
   specs:
     sync (0.2.7)
       em-http-request
