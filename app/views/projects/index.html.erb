@@ -1,4 +1,4 @@
-<h1>Your Projects</h1>
+<h1>Your Projects <small><%=params[:status] %></small></h1>
 
 <%= link_to "all", url_for(action: 'index', status: nil) %> |
 <%= link_to "all complete", url_for(status: 'complete') %> |
