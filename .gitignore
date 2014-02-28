@@ -1,6 +1,5 @@
 /.bundle
 .DS_Store
-config/sync.yml
 .powrc
 .rvmrc
 /tmp
