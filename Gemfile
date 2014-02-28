@@ -7,7 +7,7 @@ gem 'pg'
 gem 'pusher'
 gem 'faye'
 gem 'thin'
-gem 'sync', path: '/home/woto/vendor/sync'
+gem 'sync', github: 'woto/sync'
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git', :branch => 'rails4'
 gem 'sqlite3'
 
